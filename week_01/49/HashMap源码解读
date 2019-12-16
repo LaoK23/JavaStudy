@@ -1,0 +1,13 @@
+1、HashMap继承AbstractMap类，实现Map, Cloneable, Serializable等接口。
+2、HashMap的属性解读：
+①DEFAULT_INITIAL_CAPACITY：默认初始容量为16（1 << 4，1左移4位，相当于10000，2的4次方），在Java中，用位移的方式会比十进制效率更高。
+②MAXIMUM_CAPACITY：最大容量，2的30次方（1 << 30）。
+③DEFAULT_LOAD_FACTOR：默认负载因子（0.75f）,构造函数没有带参数时指定的默认值。
+3、HashMap的方法解读：
+①无参构造函数HashMap():假如没有入参，则构造一个带有默认初始容量（16）和默认负载因子（0.75f）的空HashMap。
+②构造函数HashMap(int initialCapacity, float loadFactor)：假如initialCapacity初始容量小于0，抛出异常；
+假如初始容量大于最大容量MAXIMUM_CAPACITY，则以最大容量为初始容量。假如负载因子小于0或者不是一个数字，抛出异常；
+最后调用tableSizeFor（initialCapacity）方法计算HashMap的阈值threshold。
+③hash(Object key)：返回一个哈希值。假如key为null,返回0；假如key不为null,则调用hashCode方法并去和（h >>> 16）异或，得到的结果才是争取的哈希值。
+至于为什么要和（h >>> 16）异或，还有待继续研究？（>>>是无符号右移）
+④tableSizeFor(int cap)方法：返回大于输入参数且最近的2的整数次幂的数。不如cap为10，则返回的是16。

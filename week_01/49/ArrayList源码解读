@@ -1,0 +1,14 @@
+1、ArrayList继承AbstractList类，实现List, RandomAccess, Cloneable（可克隆）, Serializable（可序列化）等接口。
+2、ArrayList的属性解读：
+①DEFAULT_CAPACITY：默认容量为10。
+②EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA：默认情况下，这两个空数组实例长度都为0，区别在于在第一次添加元素后，DEFAULTCAPACITY_EMPTY_ELEMENTDATA会扩充为ArrayList
+的默认容量10。
+③MAX_ARRAY_SIZE：要分配的ArrayList的最大长度为Integer的最大值-8，（Integer的最大值为2的31次方的结果-1）。这里为什么要减去8？是因为有些虚拟机要保存一下标题词，所以需要预留8个长度。
+④transient关键字：一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问；transient关键字只能修饰变量，而不能修饰方法和类；
+一个静态变量不管是否被transient修饰，均不能被序列化。（一句话概括技术：将不需要序列化的属性前添加关键字transient）。
+3、ArrayList的方法解读：
+①无参构造函数ArrayList()：如果没有传入初始容量，则使用空数组DEFAULTCAPACITY_EMPTY_ELEMENTDATA，在添加第一个元素的时候会扩容到默认大小10
+②有参构造函数ArrayList(int initialCapacity)：参数initialCapacity（初始容量），如果传入的初始容量大于0，就以这个初始容量为长度新创建一个数组；
+如果传入的初始容量等于0，使用空数组EMPTY_ELEMENTDATA；如果传入的初始容量小于0，抛出异常。
+③扩容方法grow(int minCapacity)：oldCapacity旧容量为数组的长度，newCapacity新容量为旧容量的1.5倍。
+如果发现新容量比需要的minCapacity容量还小，则以需要的minCapacity容量为准；如果新容量已经超过最大容量了，则使用最大容量；最后以新容量拷贝出来一个新数组。
